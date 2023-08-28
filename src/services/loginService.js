@@ -11,7 +11,7 @@ const loginService = {
 
     const token = generateToken({ email });
 
-    return { status: 'SUCCESSFUL', data: { token } }
+    return { status: 'SUCCESSFUL', data: { token } };
   },
 };
 
