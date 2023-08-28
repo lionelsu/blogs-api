@@ -10,6 +10,13 @@ const validateSchema = {
       'string.empty': 'Some required fields are missing',
     }),
   })),
+
+  createUser: joiValidate(Joi.object({
+    displayName: Joi.string().min(8).required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).required(),
+    image: Joi.string().optional(),
+  })),
   /*
   isProductName: schemaValidation(Joi.object({
     name: Joi.string().required().empty('').min(5),
