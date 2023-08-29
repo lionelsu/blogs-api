@@ -5,6 +5,7 @@ const validateSchema = require('../utils/validateSchema');
 
 const postRouter = Router();
 
+postRouter.get('/', authMiddleware, postController.getAll);
 postRouter.post('/', authMiddleware, validateSchema.createPost, postController.create);
 
 module.exports = postRouter;

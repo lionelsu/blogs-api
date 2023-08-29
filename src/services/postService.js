@@ -1,4 +1,4 @@
-const { BlogPost, PostCategory, sequelize } = require('../models');
+const { User, BlogPost, Category, PostCategory, sequelize } = require('../models');
 
 const createPost = async (post, userId, transaction) => {
   const addPost = await BlogPost.create({
@@ -21,6 +21,25 @@ const createPostCategories = async (postId, categoryIds, transaction) => {
 };
 
 const postService = {
+  getAll: async () => {
+    const result = await BlogPost.findAll({
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: { exclude: 'password' },
+        },
+        {
+          model: Category,
+          as: 'categories',
+          through: { attributes: [] },
+        },
+      ],
+    });
+
+    return { status: 'SUCCESSFUL', data: result };
+  },
+
   create: async (post, user) => {
     try {
       const { userId } = user;
