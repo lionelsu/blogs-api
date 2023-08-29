@@ -9,7 +9,7 @@ const loginService = {
       return { status: 'BAD_REQUEST', data: { message: 'Invalid fields' } };
     }
 
-    const token = generateToken({ email });
+    const token = generateToken({ email, userId: user.id });
 
     return { status: 'SUCCESSFUL', data: { token } };
   },

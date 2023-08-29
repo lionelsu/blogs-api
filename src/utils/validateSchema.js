@@ -21,6 +21,16 @@ const validateSchema = {
   createCategory: joiValidate(Joi.object({
     name: Joi.string().required(),
   })),
+
+  createPost: joiValidate(Joi.object({
+      title: Joi.string().required().messages({
+        'string.empty': 'Some required fields are missing',
+      }),
+      content: Joi.string().required().messages({
+        'string.empty': 'Some required fields are missing',
+      }),
+      categoryIds: Joi.array().items(Joi.number().integer().required()),
+    })),
   /*
   isProductName: schemaValidation(Joi.object({
     name: Joi.string().required().empty('').min(5),
