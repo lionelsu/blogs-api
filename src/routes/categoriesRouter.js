@@ -1,15 +1,11 @@
 const { Router } = require('express');
 const categoriesController = require('../controllers/categoriesController');
-const authMiddleware = require('../middlewares/authMiddleware');
-const validateSchema = require('../utils/validateSchema');
+const auth = require('../middlewares/authMiddleware');
+const validate = require('../utils/validateSchema');
 
 const categoriesRouter = Router();
 
-categoriesRouter.post(
-'/', 
-authMiddleware,
-validateSchema.createCategory, 
-categoriesController.create,
-);
+categoriesRouter.get('/', auth, categoriesController.getAll);
+categoriesRouter.post('/', auth, validate.createCategory, categoriesController.create);
 
 module.exports = categoriesRouter;

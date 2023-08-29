@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
   }, {
+    /*defaultScope: {
+      order: [['id', 'ASC']]
+    },*/
     timestamps: false,
     tableName: 'categories',
     underscored: true,

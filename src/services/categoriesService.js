@@ -1,6 +1,14 @@
 const { Category } = require('../models');
 
 const categoriesService = {
+  getAll: async () => {
+    const result = await Category.findAll({
+      order: [['id', 'ASC']],
+    });
+
+    return { status: 'SUCCESSFUL', data: result };
+  },
+
   create: async (category) => {
     try {
       const { name } = category;
