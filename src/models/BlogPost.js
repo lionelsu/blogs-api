@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
       allowNull: false,
       field: 'user_id',
+      references: {
+        model: 'users',
+        key: 'id',
+      },
       type: DataTypes.INTEGER,
     },
     published: {
@@ -29,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     timestamps: false,
-    tableName: 'users',
+    tableName: 'blog_posts',
     underscored: true,
   });
 
