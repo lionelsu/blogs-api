@@ -17,6 +17,10 @@ const validateSchema = {
     password: Joi.string().min(6).required(),
     image: Joi.string().optional(),
   })),
+
+  createCategory: joiValidate(Joi.object({
+    name: Joi.string().required(),
+  })),
   /*
   isProductName: schemaValidation(Joi.object({
     name: Joi.string().required().empty('').min(5),
