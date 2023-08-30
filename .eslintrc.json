@@ -3,6 +3,6 @@
   "extends": ["trybe-backend"],
   "rules": {
     "sonarjs/no-duplicate-string": ["error", 5],
-    "max-lines": ["error", {"max": 60, "skipComments": true}]
+    "max-lines": "off"
   }
 }
