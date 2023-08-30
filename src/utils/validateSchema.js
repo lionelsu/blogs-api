@@ -1,13 +1,17 @@
 const Joi = require('joi');
 const joiValidate = require('../middlewares/joiValidate');
 
+const customMessage = {
+  'string.empty': 'Some required fields are missing',
+};
+
 const validateSchema = {
   loginField: joiValidate(Joi.object({
     email: Joi.string().required().messages({
-      'string.empty': 'Some required fields are missing',
+      ...customMessage,
     }),
     password: Joi.string().required().messages({
-      'string.empty': 'Some required fields are missing',
+      ...customMessage,
     }),
   })),
 
@@ -24,13 +28,22 @@ const validateSchema = {
 
   createPost: joiValidate(Joi.object({
       title: Joi.string().required().messages({
-        'string.empty': 'Some required fields are missing',
+        ...customMessage,
       }),
       content: Joi.string().required().messages({
-        'string.empty': 'Some required fields are missing',
+        ...customMessage,
       }),
       categoryIds: Joi.array().items(Joi.number().integer().required()),
     })),
+
+  updatePost: joiValidate(Joi.object({
+    title: Joi.string().required().messages({
+      ...customMessage,
+    }),
+    content: Joi.string().required().messages({
+      ...customMessage,
+    }),
+  })),
   /*
   isProductName: schemaValidation(Joi.object({
     name: Joi.string().required().empty('').min(5),

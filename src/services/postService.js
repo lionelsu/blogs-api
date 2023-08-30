@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 const { User, BlogPost, Category, PostCategory, sequelize } = require('../models');
 
 const createPost = async (post, userId, transaction) => {
@@ -20,24 +21,52 @@ const createPostCategories = async (postId, categoryIds, transaction) => {
   await PostCategory.bulkCreate(postCategories, { transaction });
 };
 
+const getPostFormat = {
+  include: [
+    {
+      model: User,
+      as: 'user',
+      attributes: { exclude: 'password' },
+    },
+    {
+      model: Category,
+      as: 'categories',
+      through: { attributes: [] },
+    },
+  ],
+};
+
 const postService = {
   getAll: async () => {
     const result = await BlogPost.findAll({
-      include: [
-        {
-          model: User,
-          as: 'user',
-          attributes: { exclude: 'password' },
-        },
-        {
-          model: Category,
-          as: 'categories',
-          through: { attributes: [] },
-        },
-      ],
+      ...getPostFormat,
     });
 
     return { status: 'SUCCESSFUL', data: result };
+  },
+
+  getById: async (id) => {
+    const result = await BlogPost.findByPk(id, {
+      ...getPostFormat,
+    });
+
+    if (!result) {
+      return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
+    }
+
+    return { status: 'SUCCESSFUL', data: result };
+  },
+
+  update: async (postId, userId, post) => {
+    const { data } = await postService.getById(postId);
+
+    if (data.userId !== userId) {
+      return { status: 'UNAUTHORIZED', data: { message: 'Unauthorized user' } };
+    }
+
+    await BlogPost.update({ ...post }, { where: { id: postId } });
+
+    return postService.getById(postId);
   },
 
   create: async (post, user) => {
