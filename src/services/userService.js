@@ -34,6 +34,12 @@ const userService = {
       return { status: 'CONFLICT', data: { message: 'User already registered' } };
     }
   },
+
+  delete: async (id) => {
+    await User.destroy({ where: { id } });
+
+    return { status: 'DELETED' };
+  },
 };
 
 module.exports = userService;

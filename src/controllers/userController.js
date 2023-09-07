@@ -20,6 +20,14 @@ const userController = {
 
     res.status(mapStatusHTTP(status)).json(data);
   },
+
+  delete: async (req, res) => {
+    const { userId } = req.user;
+
+    const { status } = await userService.delete(userId);
+
+    return res.status(mapStatusHTTP(status)).end();
+  },
 };
 
 module.exports = userController;
