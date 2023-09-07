@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         model: 'blog_posts',
         key: 'id',
       },
+      onUpdate: 'CASCADE', onDelete: 'CASCADE',
     },
     categoryId: {
       allowNull: false,
@@ -19,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         model: 'categories',
         key: 'id',
       },
+      onUpdate: 'CASCADE', onDelete: 'CASCADE',
     },
   }, {
     timestamps: false,
@@ -35,6 +37,7 @@ module.exports = (sequelize, DataTypes) => {
     models.BlogPost.belongsToMany(models.Category, {
       through: PostCategory, as: 'categories',
       foreignKey: 'postId', otherKey: 'categoryId',
+      onDelete: 'CASCADE',
     });
   };
 

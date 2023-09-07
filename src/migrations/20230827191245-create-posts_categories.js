@@ -12,6 +12,7 @@ module.exports = {
           model: 'blog_posts',
           key: 'id',
         },
+        onUpdate: 'CASCADE', onDelete: 'CASCADE',
       },
       categoryId: {
         allowNull: false,
@@ -22,6 +23,7 @@ module.exports = {
           model: 'categories',
           key: 'id',
         },
+        onUpdate: 'CASCADE', onDelete: 'CASCADE',
       },
     });
   },

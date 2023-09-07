@@ -28,6 +28,18 @@ const postController = {
 
     return res.status(mapStatusHTTP(status)).json(data);
   },
+
+  delete: async (req, res) => {
+    const { id } = req.params;
+    const { userId } = req.user;
+    const { status, data } = await postService.delete(id, userId);
+
+    if (data) {
+      res.status(mapStatusHTTP(status)).json(data);
+    }
+
+    res.status(mapStatusHTTP(status)).end();
+  },
 };
 
 module.exports = postController;

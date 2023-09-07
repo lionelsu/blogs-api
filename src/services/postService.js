@@ -88,6 +88,22 @@ const postService = {
         data: { message: 'one or more "categoryIds" not found' } };
     }
   },
+
+  delete: async (postId, userId) => {
+    const { status, data } = await postService.getById(postId);
+  
+    if (status === 'NOT_FOUND') {
+      return { status, data };
+    }
+  
+    if (data.userId !== userId) {
+      return { status: 'UNAUTHORIZED', data: { message: 'Unauthorized user' } };
+    }
+  
+    await BlogPost.destroy({ where: { id: postId } });
+  
+    return { status: 'DELETED' };
+  },
 };
 
 module.exports = postService;
