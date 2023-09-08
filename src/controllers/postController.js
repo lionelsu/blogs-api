@@ -40,6 +40,14 @@ const postController = {
 
     res.status(mapStatusHTTP(status)).end();
   },
+
+  search: async (req, res) => {
+    const { q } = req.query;
+
+    const { status, data } = await postService.search(q);
+
+    return res.status(mapStatusHTTP(status)).json(data);
+  },
 };
 
 module.exports = postController;

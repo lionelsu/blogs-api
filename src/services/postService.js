@@ -1,4 +1,4 @@
-/* eslint-disable max-lines */
+const { Sequelize } = require('sequelize');
 const { User, BlogPost, Category, PostCategory, sequelize } = require('../models');
 
 const createPost = async (post, userId, transaction) => {
@@ -103,6 +103,22 @@ const postService = {
     await BlogPost.destroy({ where: { id: postId } });
   
     return { status: 'DELETED' };
+  },
+
+  search: async (q) => {
+    const { Op } = Sequelize;
+
+    const result = await BlogPost.findAll({
+      where: {
+        [Op.or]: [
+          { title: { [Op.like]: `%${q}` } },
+          { content: { [Op.like]: `%${q}` } },
+        ],
+      },
+      ...getPostFormat,
+    });
+
+    return { status: 'SUCCESSFUL', data: result };
   },
 };
 
