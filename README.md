@@ -154,7 +154,15 @@ npm run db:reset
 
 **Categories:**
 
+- **`GET /categories`**: Lista todos as categorias.
+- **`POST /categories`**: Cria uma nova categoria.
+
 **User:**
+
+- **`GET /user`**: Lista todos os users.
+- **`GET /user/:id`**: Lista um user específico.
+- **`POST /user`**: Cria um novo user.
+- **`DELETE /user/me`**: Deleta um user específico baseado no token do usuário autenticado.
 
 ## Habilidades desenvolvidas
 
